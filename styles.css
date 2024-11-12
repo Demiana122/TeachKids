@@ -1,0 +1,114 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+h2 {
+  color: #333;
+  margin-top: 20px;
+}
+
+.editor-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.editor-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50%; 
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.editor-button:hover {
+  background-color: #45a049;
+}
+
+
+@media (max-width: 600px) {
+  .editor-button {
+    width: 40px; 
+    height: 40px; 
+    font-size: 10px; 
+  }
+
+  .editor-button span {
+    font-size: 10px; 
+  }
+}
+
+.editor-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.output-section, .preview-section {
+  flex: 1 1 48%;
+  background: #fff;
+  padding: 15px;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.output-section pre {
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  margin: 0;
+}
+
+iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+  border-radius: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
