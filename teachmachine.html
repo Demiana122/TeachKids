@@ -93,11 +93,20 @@
             margin-bottom: 10px;
         }
 
-        /* New style for the warning message */
         .warning-message {
             color: red;
             font-size: 16px;
             margin-bottom: 10px;
+        }
+
+        .results-container {
+            border: 2px solid #333;
+            padding: 20px;
+            margin-top: 20px;
+            width: 50%;
+            display: inline-block;
+            text-align: center;
+            border-radius: 10px;
         }
 
         /* Media Query for Mobile */
@@ -147,8 +156,10 @@
         <!-- Test Image Results -->
         <div id="testContainer" class="test-container"></div>
     
-        <!-- Results Display -->
-        <p id="results">Results will appear here</p>
+        <!-- Results Display inside a box -->
+        <div id="resultsContainer" class="results-container">
+            <p id="results">Results will appear here</p>
+        </div>
     </div>
 
     <script>
@@ -285,13 +296,18 @@
         }
 
         function predictImage() {
-            if (!model) {
-                alert("Please train the model first");
-                return;
-            }
             const input = document.getElementById('imageTestUpload');
-            input.onchange = async (event) => {
-                const file = event.target.files[0];
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const imageURL = URL.createObjectURL(file);
+                const testBox = document.getElementById('testContainer');
+                testBox.innerHTML = `
+                    <div class="test-box">
+                        <img src="${imageURL}" alt="Uploaded Image">
+                    </div>`;
+
                 const processedImage = await preprocessImage(file);
                 const prediction = model.predict(processedImage.expandDims(0));
                 const classConfidences = await prediction.data();
@@ -302,7 +318,12 @@
                     resultHTML += `<li>${name}: ${(classConfidences[i] * 100).toFixed(2)}%</li>`;
                 });
                 resultHTML += `</ul><p><strong>Predicted Class:</strong> ${classNames[predictedClass]}</p>`;
-                document.getElementById('results').innerHTML = resultHTML;
+
+                const resultsContainer = document.getElementById('resultsContainer');
+                resultsContainer.innerHTML = `
+                    <p><strong>Prediction Results:</strong></p>
+                    ${resultHTML}
+                `;
 
                 processedImage.dispose();
                 prediction.dispose();
